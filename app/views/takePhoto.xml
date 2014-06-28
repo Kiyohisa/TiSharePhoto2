@@ -1,0 +1,5 @@
+<Alloy>
+	<View class="takePhoto">
+		<Button id="take" title="take" onClick="takePhoto"></Button>
+	</View>
+</Alloy>

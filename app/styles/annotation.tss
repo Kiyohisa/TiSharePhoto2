@@ -1,0 +1,4 @@
+"Annotation": {
+    animate: true,
+    pincolor: Titanium.Map.ANNOTATION_RED,
+}
