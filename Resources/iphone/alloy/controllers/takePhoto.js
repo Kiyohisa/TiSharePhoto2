@@ -1,16 +1,29 @@
 function Controller() {
     function takePhoto() {
-        Ti.Media.showCamera({
+        Ti.Media.openPhotoGallery({
             success: function(e) {
                 e.cropRect;
-                e.media;
+                var image = e.media;
                 if (e.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-                    var imageView = Ti.UI.createImageView({
-                        width: win.width,
-                        height: win.height,
-                        image: e.media
+                    Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
+                    Ti.Geolocation.getCurrentPosition(function(evt) {
+                        var now = new Date().getTime();
+                        Ti.API.info("now " + now);
+                        var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, String.format("%d-%d", now, Math.floor(1e3 * Math.random())));
+                        file.write(image);
+                        Ti.API.info("file.nativePath " + file.nativePath);
+                        var savePhoto = {
+                            path: file.nativePath,
+                            latitude: evt.coords.latitude,
+                            longitude: evt.coords.longitude
+                        };
+                        Ti.API.info({
+                            savePhoto: savePhoto
+                        });
+                        var photo = Alloy.createModel("photo", savePhoto);
+                        photo.save();
+                        Ti.App.fireEvent("app:update", photo);
                     });
-                    win.add(imageView);
                 } else alert("got the wrong type back =" + event.mediaType);
             },
             cancel: function() {},
@@ -58,7 +71,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     arguments[0] || {};
-    var win = Ti.UI.currentWindow;
+    Ti.UI.currentWindow;
     __defers["$.__views.take!click!takePhoto"] && $.__views.take.addEventListener("click", takePhoto);
     _.extend($, exports);
 }

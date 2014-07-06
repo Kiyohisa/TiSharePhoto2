@@ -1,5 +1,5 @@
 <Alloy>
 	<View ns="Ti.Map" id="map" mapType="Ti.Map.STANDARD_TYPE">
-		<Require src="annotation" title="Current Position" />
+		<Require src="annotation" title="Photo position" />
 	</View>
 </Alloy>

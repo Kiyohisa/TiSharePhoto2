@@ -1,1 +1,1 @@
-module.exports = [{"isApi":true,"priority":1000.0002,"key":"Annotation","style":{animate:true,pincolor:Titanium.Map.ANNOTATION_RED,}}];
+module.exports = [{"isApi":true,"priority":1000.0002,"key":"Annotation","style":{animate:true,pincolor:Titanium.Map.ANNOTATION_RED,rightButton:Ti.UI.iPhone.SystemButton.DISCLOSURE,}}];

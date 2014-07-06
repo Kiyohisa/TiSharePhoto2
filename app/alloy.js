@@ -12,3 +12,5 @@
 if (OS_IOS || OS_ANDROID) {
 	Ti.Map = require('ti.map');
 }
+Alloy.Collections.photo = Alloy.createCollection("photo");
+//Alloy.Globals.Map = require('ti.map');

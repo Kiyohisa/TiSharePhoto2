@@ -1,4 +1,5 @@
 "Annotation": {
     animate: true,
     pincolor: Titanium.Map.ANNOTATION_RED,
+    rightButton : Ti.UI.iPhone.SystemButton.DISCLOSURE
 }

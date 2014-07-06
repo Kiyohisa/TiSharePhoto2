@@ -1,7 +1,9 @@
 exports.definition = {
 	config: {
 		columns: {
-		    "path": "string"
+		    "path": "text",
+		    "latitude": "text",
+		    "longitude": "text",
 		},
 		adapter: {
 			type: "sql",
