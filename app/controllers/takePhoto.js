@@ -1,6 +1,5 @@
 var args = arguments[0] || {};
 
-var win = Ti.UI.currentWindow;
 function takePhoto(){
 	Ti.Media.openPhotoGallery({	
 	//Ti.Media.showCamera({
@@ -10,14 +9,6 @@ function takePhoto(){
 			var image = e.media;
 			if(e.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				
-				// カメラで撮った画像を表示
-				/*var imageView = Ti.UI.createImageView({
-					width : win.width,
-					height : win.height,
-					image : e.media
-				});
-				win.add(imageView);
-				*/
             	Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
             	Ti.Geolocation.getCurrentPosition(
             		function(evt){
@@ -26,20 +17,16 @@ function takePhoto(){
 	 					var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory
 	 						,String.format('%d-%d', now, Math.floor(Math.random() * 1000)));
 	 					file.write(image);
-	 					Ti.API.info("file.nativePath " +file.nativePath);
 
 	 	 				var savePhoto = {
 						    path: file.nativePath,
 						    latitude: evt.coords.latitude,
 						    longitude: evt.coords.longitude,
 	 					};
-						//alert("savePhoto ="+savePhoto);
-						Ti.API.info({savePhoto: savePhoto});
 	 					var photo = Alloy.createModel("photo", savePhoto);
 	 					photo.save();
 						//Alloy.Collections.photo.add(photo);
 						Ti.App.fireEvent('app:update', photo);
-
             		}
             	);
      		}else{

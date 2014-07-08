@@ -11,15 +11,11 @@ function Controller() {
                         Ti.API.info("now " + now);
                         var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, String.format("%d-%d", now, Math.floor(1e3 * Math.random())));
                         file.write(image);
-                        Ti.API.info("file.nativePath " + file.nativePath);
                         var savePhoto = {
                             path: file.nativePath,
                             latitude: evt.coords.latitude,
                             longitude: evt.coords.longitude
                         };
-                        Ti.API.info({
-                            savePhoto: savePhoto
-                        });
                         var photo = Alloy.createModel("photo", savePhoto);
                         photo.save();
                         Ti.App.fireEvent("app:update", photo);
@@ -71,7 +67,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     arguments[0] || {};
-    Ti.UI.currentWindow;
     __defers["$.__views.take!click!takePhoto"] && $.__views.take.addEventListener("click", takePhoto);
     _.extend($, exports);
 }

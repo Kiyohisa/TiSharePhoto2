@@ -1,0 +1,5 @@
+<Alloy>
+	<Window id="pictView" onClick="showNavBar">
+	   <ImageView id="showImage"/>
+	</Window>
+</Alloy>

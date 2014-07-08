@@ -6,13 +6,13 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId6 = [];
-    $.__views.__alloyId7 = Alloy.createController("annotation", {
+    var __alloyId0 = [];
+    $.__views.__alloyId1 = Alloy.createController("annotation", {
         title: "Photo position",
-        id: "__alloyId7",
+        id: "__alloyId1",
         __parentSymbol: __parentSymbol
     });
-    __alloyId6.push($.__views.__alloyId7.getViewEx({
+    __alloyId0.push($.__views.__alloyId1.getViewEx({
         recurse: true
     }));
     $.__views.map = Ti.Map.createView({
@@ -20,39 +20,21 @@ function Controller() {
         animate: true,
         regionFit: true,
         userLocation: true,
-        annotations: __alloyId6,
-        ns: Ti.Map,
+        annotations: __alloyId0,
         id: "map",
+        ns: Ti.Map,
         mapType: Ti.Map.STANDARD_TYPE
     });
     $.__views.map && $.addTopLevelView($.__views.map);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var _addAnnotation = function(photo) {
-        var imgBlob = Ti.UI.createImageView({
-            image: photo.attributes.path,
-            borderColor: "#fff",
-            borderWidth: 12,
-            hires: true
-        }).toImage();
-        var thumbnailImageView = Ti.UI.createImageView({
-            image: imgBlob,
-            width: 64,
-            height: 64,
-            borderColor: "#999",
-            borderWidth: 1,
-            hires: true
-        });
         var annotation = Alloy.createController("annotation", {
             latitude: photo.attributes.latitude,
             longitude: photo.attributes.longitude,
-            leftView: Ti.UI.createImageView({
-                image: photo.attributes.path,
-                width: 32,
-                height: 32
-            }),
             path: photo.attributes.path,
-            image: thumbnailImageView.toImage()
+            rightButton: "iphone" == Ti.Platform.osname ? Ti.UI.iPhone.SystemButton.DISCLOSURE : "light_more.png",
+            title: "test"
         });
         $.map.addAnnotation(annotation.getView());
     };
@@ -80,6 +62,16 @@ function Controller() {
             longitude: longitude,
             latitudeDelta: .01,
             longitudeDelta: .01
+        });
+        $.map.addEventListener("click", function(event) {
+            Ti.API.info("Annotation clicked, path: ");
+            if (event.annotation && "rightButton" == event.clicksource) {
+                Ti.API.info("annotation click");
+                var imageView = Alloy.createController("showImage", {
+                    image: event.annotation.path
+                });
+                imageView.getView().open();
+            }
         });
     });
     Ti.App.addEventListener("app:update", function(photo) {
