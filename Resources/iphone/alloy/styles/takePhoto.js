@@ -1,1 +1,1 @@
-module.exports = [{"isApi":true,"priority":1000.0007,"key":"Button","style":{font:{fontSize:"20dp",fontWeight:"bold",},top:"5dp",height:"40dp",width:"40dp",right:"5dp",}},{"isClass":true,"priority":10000.0008,"key":"takePhoto","style":{backgroundColor:"#800",height:"50dp",top:0,}}];
+module.exports = [{"isApi":true,"priority":1000.001,"key":"Button","style":{font:{fontSize:"20dp",fontWeight:"bold",},top:"5dp",height:"40dp",width:"40dp",right:"5dp",}},{"isClass":true,"priority":10000.0011,"key":"takePhoto","style":{backgroundColor:"#800",height:"50dp",top:0,}}];

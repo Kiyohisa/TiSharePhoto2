@@ -1,6 +1,7 @@
 <Alloy>
 	<Window title="showMap">
-		<Require src="takePhoto" id="takePhoto"></Require>
-		<Require src="map" id="map"></Require>
+		<Require src="login" id="login"></Require>
+		<!-- <Require src="takePhoto" id="takePhoto"></Require>
+		<Require src="map" id="map"></Require> -->	
 	</Window>
 </Alloy>

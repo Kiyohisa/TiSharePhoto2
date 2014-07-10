@@ -12,16 +12,11 @@ function Controller() {
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
-    $.__views.takePhoto = Alloy.createController("takePhoto", {
-        id: "takePhoto",
+    $.__views.login = Alloy.createController("login", {
+        id: "login",
         __parentSymbol: $.__views.index
     });
-    $.__views.takePhoto.setParent($.__views.index);
-    $.__views.map = Alloy.createController("map", {
-        id: "map",
-        __parentSymbol: $.__views.index
-    });
-    $.__views.map.setParent($.__views.index);
+    $.__views.login.setParent($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.index.open();

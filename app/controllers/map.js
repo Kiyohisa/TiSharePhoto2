@@ -1,3 +1,9 @@
+//$.map.show();
+exports.move = function(){
+	//alert('Moved!');
+	return $.mapWindow.open();
+};
+
 function report(evt) {
     Ti.API.info("Annotation clicked");
 }
@@ -85,5 +91,3 @@ Ti.Geolocation.getCurrentPosition(function(e) {
 Ti.App.addEventListener('app:update', function(photo) {
 	_addAnnotation(photo);
 });
-
-//$.index.open();

@@ -6,6 +6,11 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
+    $.__views.mapWindow = Ti.UI.createWindow({
+        id: "mapWindow",
+        title: "現在地"
+    });
+    $.__views.mapWindow && $.addTopLevelView($.__views.mapWindow);
     var __alloyId0 = [];
     $.__views.__alloyId1 = Alloy.createController("annotation", {
         title: "Photo position",
@@ -25,9 +30,12 @@ function Controller() {
         ns: Ti.Map,
         mapType: Ti.Map.STANDARD_TYPE
     });
-    $.__views.map && $.addTopLevelView($.__views.map);
+    $.__views.mapWindow.add($.__views.map);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    exports.move = function() {
+        return $.mapWindow.open();
+    };
     var _addAnnotation = function(photo) {
         var annotation = Alloy.createController("annotation", {
             latitude: photo.attributes.latitude,
