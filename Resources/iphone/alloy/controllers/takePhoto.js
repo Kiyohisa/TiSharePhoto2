@@ -18,6 +18,18 @@ function Controller() {
                         };
                         var photo = Alloy.createModel("photo", savePhoto);
                         photo.save();
+                        var place;
+                        Cloud.Places.create({
+                            name: "test",
+                            latitude: evt.coords.latitude,
+                            longitude: evt.coords.longitude,
+                            photo: image
+                        }, function(e) {
+                            if (e.success) {
+                                place = e.places[0];
+                                alert("Created!");
+                            } else error(e);
+                        });
                         Ti.App.fireEvent("app:update", photo);
                     });
                 } else alert("got the wrong type back =" + event.mediaType);
@@ -67,6 +79,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     arguments[0] || {};
+    var Cloud = require("ti.cloud");
     __defers["$.__views.take!click!takePhoto"] && $.__views.take.addEventListener("click", takePhoto);
     _.extend($, exports);
 }

@@ -1,6 +1,6 @@
 <Alloy>
 	<Window id="mapWindow" title="現在地">
-
+	<Require src="takePhoto" id="takePhoto"></Require>
 	<View id="map" ns="Ti.Map" mapType="Ti.Map.STANDARD_TYPE">
 		<Require src="annotation" title="Photo position" />
 		<!-- <Require src="showImage"></Require> -->

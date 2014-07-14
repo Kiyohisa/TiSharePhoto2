@@ -8,38 +8,32 @@ function report(evt) {
     Ti.API.info("Annotation clicked");
 }
 
-var _addAnnotation = function(photo) {
-/*
-	var imgBlob = Ti.UI.createImageView({
-		image : photo.attributes.path,
-		borderColor : '#fff',
-		borderWidth : 12,
-		hires : true
-	}).toImage();
+var _addAnnotation = function() {
 
-	var thumbnailImageView = Ti.UI.createImageView({
-		image : imgBlob,
-		width : 64,
-		height : 64,
-		borderColor : '#999',
-		borderWidth : 1,
-		hires : true
+	var cloud = require("ti.cloud");
+	cloud.Places.query({
+		page:1,
+		per_page:20
+	},function(e){
+		var data, i, place, result,marker;
+		if(e.success){
+			i=0;
+			while(i < e.places.length){
+				place = e.places[i];
+				marker = Alloy.createController('annotation', {
+					latitude : place.latitude,
+					longitude : place.longitude,
+					//path : place.photo.urls.thumb_100,
+					path : place.photo.urls.medium_640,
+					rightButton : (Ti.Platform.osname == "iphone" ? Ti.UI.iPhone.SystemButton.DISCLOSURE : "light_more.png"),
+					title : "test"
+					//image : thumbnailImageView.toImage()
+				});
+				$.map.addAnnotation(marker.getView());
+				i++;
+			}
+		}
 	});
-*/
-	var annotation = Alloy.createController('annotation', {
-		latitude : photo.attributes.latitude,
-		longitude : photo.attributes.longitude,
-		// leftView : Ti.UI.createImageView({
-			// image : photo.attributes.path,
-			// width : 32,
-			// height : 32
-		// }),
-		path : photo.attributes.path,
-		rightButton : (Ti.Platform.osname == "iphone" ? Ti.UI.iPhone.SystemButton.DISCLOSURE : "light_more.png"),
-		title : "test"
-		//image : thumbnailImageView.toImage()
-	});
-	$.map.addAnnotation(annotation.getView());
 };
 
 // 現在位置を設定
@@ -59,10 +53,11 @@ Ti.Geolocation.getCurrentPosition(function(e) {
 		pincolor : Ti.Map.ANNOTATION_RED,
 		animate : true
 	});
-	var photos = Alloy.Collections.photo;
-	photos.fetch();
-	Ti.API.info(photos.fetch());
-	photos.map(_addAnnotation);
+	// var photos = Alloy.Collections.photo;
+	// photos.fetch();
+	// Ti.API.info(photos.fetch());
+	// photos.map(_addAnnotation);
+	_addAnnotation();
 
 	$.map.show();
 	$.map.setLocation({
@@ -81,13 +76,34 @@ Ti.Geolocation.getCurrentPosition(function(e) {
 				image : event.annotation.path
 			});
 			imageView.getView().open();
-			//index = Alloy.createController("index");
-			//index.getView("showMap").open(imageView.getView());
 		}
 		
 	});	
 });
 
 Ti.App.addEventListener('app:update', function(photo) {
-	_addAnnotation(photo);
+	//_addAnnotation(photo);
+	/*
+	var cloud = require("ti.cloud");
+	cloud.Places.show({
+		place_id:place.id
+	},function(e){
+	*/
+		var addPlace,marker;
+//		if(e.success){
+//			addPlace = e.places[0];
+			marker = Alloy.createController('annotation', {
+					latitude : photo.attributes.latitude,
+					longitude : photo.attributes.longitude,
+					//path : place.photo.urls.thumb_100,
+					path : photo.attributes.path,
+					rightButton : (Ti.Platform.osname == "iphone" ? Ti.UI.iPhone.SystemButton.DISCLOSURE : "light_more.png"),
+					title : "test"
+					//image : thumbnailImageView.toImage()
+			});
+			$.map.addAnnotation(marker.getView());
+	//}
+		
+	//});
+	
 });
