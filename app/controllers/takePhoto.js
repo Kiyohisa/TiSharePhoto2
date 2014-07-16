@@ -41,7 +41,7 @@ function takePhoto(){
 						}, function(e){
 			            	if(e.success) {
 			            		place = e.places[0];
-                    			alert('Created!');
+//                    			alert('Created!');
 //								Ti.App.fireEvent('app:update', place);					
                     			
                 			} else {
